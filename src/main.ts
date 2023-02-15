@@ -2,9 +2,9 @@ import 'dotenv/config';
 import mineflayer from 'mineflayer';
 import { ChannelType, Client, GatewayIntentBits } from "discord.js";
 const mineflayerViewer = require('prismarine-viewer').mineflayer
+const antihunger = require('mineflayer-antihunger').plugin
 import { pathfinder, Movements, goals } from 'mineflayer-pathfinder';
 import { plugin as autoeat } from 'mineflayer-auto-eat';
-import { plugin as antihunger } from './antihunger'
 
 const hostname: string = "localhost"
 const goal: goals.Goal = new goals.GoalNear(0, 60, -2000000, 44)

@@ -3,6 +3,7 @@
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "mineflayer": "^4.8.1",
+    "mineflayer-antihunger": "^1.0.4",
     "mineflayer-auto-eat": "^3.3.1",
     "mineflayer-pathfinder": "github:PrismarineJS/mineflayer-pathfinder",
     "prismarine-viewer": "^1.23.0"
