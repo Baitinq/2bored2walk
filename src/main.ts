@@ -52,6 +52,8 @@ bot.loadPlugin(autoeat)
 bot.once('spawn', () => {
   mineflayerViewer(bot, { firstPerson: true, port: 3000 });
   const defaultMove = new Movements(bot);
+  defaultMove.allowParkour = false;
+  defaultMove.maxDropDown = 3;
 
   (bot as any).autoEat.options.priority = 'saturation';
   (bot as any).autoEat.options.startAt = 16;
