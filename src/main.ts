@@ -2,9 +2,10 @@ import 'dotenv/config';
 import mineflayer from 'mineflayer';
 import { ChannelType, Client, GatewayIntentBits } from "discord.js";
 const mineflayerViewer = require('prismarine-viewer').mineflayer
-const antihunger = require('mineflayer-antihunger').plugin
+const antiHunger = require('mineflayer-antihunger').plugin
 import { pathfinder, Movements, goals } from 'mineflayer-pathfinder';
 import { plugin as autoeat } from 'mineflayer-auto-eat';
+import autoArmor from '@nxg-org/mineflayer-auto-armor';
 
 const hostname: string = "localhost"
 const goal: goals.Goal = new goals.GoalNear(0, 60, -2000000, 44)
@@ -41,15 +42,16 @@ discordClient.once("ready", () => {
 
 const bot = mineflayer.createBot({
   host: hostname,
-  port: 25565,
-  username: process.env.MINECRAFT_EMAIL as string,
+  port: 37253,
+  username: "s",//process.env.MINECRAFT_EMAIL as string,
   version: "1.12.2",
   auth: 'microsoft'
 })
 
 bot.loadPlugin(pathfinder)
 bot.loadPlugin(autoeat)
-bot.loadPlugin(antihunger)
+bot.loadPlugin(antiHunger)
+bot.loadPlugin(autoArmor)
 
 bot.once('spawn', () => {
   mineflayerViewer(bot, { firstPerson: true, port: 3000 });
@@ -59,6 +61,8 @@ bot.once('spawn', () => {
 
   (bot as any).autoEat.options.priority = 'saturation';
   (bot as any).autoEat.options.startAt = 16;
+
+  (bot as any).autoArmor.checkOnItemPickup = true;
 
   (bot as any).pathfinder.setMovements(defaultMove);
   (bot as any).pathfinder.setGoal(goal);

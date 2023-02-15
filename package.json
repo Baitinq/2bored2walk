@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@nxg-org/mineflayer-auto-armor": "^1.1.0",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "mineflayer": "^4.8.1",
