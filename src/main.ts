@@ -21,6 +21,7 @@ const discordToken: string = process.env.DISCORD_TOKEN as string
 //TODO antiafk mineflayer plugin NEED autoeeat
 //maybe not need to merge, check if end. to diconnect from proxy make a command or somethin
 //todo maybe fix fall damage antihunger
+//TODO: make it take command messages?
 
 function sendMessageToChannel(message: string) {
   const channel = discordClient?.channels.cache.get(discordChannelId)
