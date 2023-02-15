@@ -1,10 +1,8 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 pkgs.mkShell
 {
   buildInputs = with pkgs; [
     nodejs
     nodePackages.ts-node
   ];
-
 }
-
