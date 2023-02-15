@@ -3,6 +3,7 @@ import mineflayer from 'mineflayer';
 import { ChannelType, Client, GatewayIntentBits } from "discord.js";
 const mineflayerViewer = require('prismarine-viewer').mineflayer
 const antiHunger = require('mineflayer-antihunger').plugin
+const autoTotem = require('mineflayer-auto-totem').autototem
 import { pathfinder, Movements, goals } from 'mineflayer-pathfinder';
 import { plugin as autoeat } from 'mineflayer-auto-eat';
 import autoArmor from '@nxg-org/mineflayer-auto-armor';
@@ -52,6 +53,7 @@ bot.loadPlugin(pathfinder)
 bot.loadPlugin(autoeat)
 bot.loadPlugin(antiHunger)
 bot.loadPlugin(autoArmor)
+bot.loadPlugin(autoTotem)
 
 bot.once('spawn', () => {
   mineflayerViewer(bot, { firstPerson: true, port: 3000 });
@@ -83,6 +85,10 @@ bot.on('entityMoved', (entity: any) => {
 bot.on('health', () => {
   if (bot.health < minHealth)
     quit(`low hp: ${bot.health}`)
+})
+
+bot.on("physicsTick", async () => {
+  (bot as any).autototem.equip()
 })
 
 setInterval(() => {
