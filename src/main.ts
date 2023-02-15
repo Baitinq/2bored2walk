@@ -4,6 +4,7 @@ import { ChannelType, Client, GatewayIntentBits } from "discord.js";
 const mineflayerViewer = require('prismarine-viewer').mineflayer
 import { pathfinder, Movements, goals } from 'mineflayer-pathfinder';
 import { plugin as autoeat } from 'mineflayer-auto-eat';
+import { plugin as antihunger } from './antihunger'
 
 const hostname: string = "localhost"
 const goal: goals.Goal = new goals.GoalNear(0, 60, -2000000, 44)
@@ -48,6 +49,7 @@ const bot = mineflayer.createBot({
 
 bot.loadPlugin(pathfinder)
 bot.loadPlugin(autoeat)
+bot.loadPlugin(antihunger)
 
 bot.once('spawn', () => {
   mineflayerViewer(bot, { firstPerson: true, port: 3000 });
@@ -78,35 +80,6 @@ bot.on('health', () => {
   if (bot.health < minHealth)
     quit(`low hp: ${bot.health}`)
 })
-
-
-var originalFunction = bot._client.write;
-
-// Create a new function that wraps the original function
-var newFunction = function (this: unknown, name: string, params: any) {
-  //console.log(`WRITE called with ${ name }: ${ params } `);
-  //console.log("a: " + Object.keys(name))
-  //console.log("b: " + Object.keys(params))
-  if (name === "entity_action") {
-    if (params.actionId === 3 || params.actionId === 4) {
-      //console.log("CANCELLING ACTION ID: " + params.actionId)
-      return;
-    }
-  }
-  //if (a === "chat") {
-  //console.log("CANCELLED CHAT" + b.message)
-  // return;
-  //}
-  if (name === 'position_look' || name === 'position') {
-    //console.log("PACKET: " + name + " CANCELLING ON GROUND: " + params.onGround)
-    params.onGround = false
-    //console.log("CANCELLED ON GROUND: " + params.onGround)
-  }
-  return originalFunction.apply(this, [...arguments] as [name: string, params: any])
-}
-
-// Replace the original function with the new function
-bot._client.write = newFunction;
 
 setInterval(() => {
   if (bot._client.state !== "play") return
