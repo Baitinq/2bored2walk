@@ -6,14 +6,14 @@ import { pathfinder, Movements, goals } from 'mineflayer-pathfinder';
 import { plugin as autoeat } from 'mineflayer-auto-eat';
 
 const hostname: string = "localhost"
+const goal: goals.Goal = new goals.GoalNear(0, 60, -2000000, 44)
+const updateTimeMinutes: number = 30
+const minHealth: number = 0
+const swingArmTimeSeconds: number = 3
 
 const discordClient = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 const discordChannelId: string = process.env.DISCORD_CHANNEL as string
 const discordToken: string = process.env.DISCORD_TOKEN as string
-const goal: goals.Goal = new goals.GoalNear(0, 60, -2000000, 1)
-const updateTimeMinutes: number = 30
-const minHealth: number = 15
-const swingArmTimeSeconds: number = 3
 
 //TODO antiafk mineflayer plugin NEED autoeeat
 //maybe not need to merge, check if end. to diconnect from proxy make a command or somethin
