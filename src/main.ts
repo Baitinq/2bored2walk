@@ -61,6 +61,7 @@ bot.once('spawn', () => {
   const defaultMove = new Movements(bot);
   defaultMove.allowParkour = false;
   defaultMove.maxDropDown = 3;
+  defaultMove.allowEntityDetection = false;
 
   (bot as any).autoEat.options.priority = 'saturation';
   (bot as any).autoEat.options.startAt = 16;
