@@ -9,7 +9,7 @@ import { plugin as autoeat } from 'mineflayer-auto-eat';
 import autoArmor from '@nxg-org/mineflayer-auto-armor';
 
 const hostname: string = "localhost"
-const goal: goals.Goal = new goals.GoalNear(0, 60, -2000000, 44)
+const goal: goals.Goal = new goals.GoalNearXZ(0, -2000000, 44)
 const updateTimeMinutes: number = 30
 const minHealth: number = 0
 const swingArmTimeSeconds: number = 3
