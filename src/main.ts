@@ -38,7 +38,7 @@ function quit(reason: any) {
 
 discordClient.login(discordToken);
 
-discordClient.once("ready", () => {
+discordClient.once("ready", async () => {
   console.log(`discord: Logged in as ${discordClient?.user?.tag}!`);
 });
 
@@ -56,7 +56,7 @@ bot.loadPlugin(antiHunger)
 bot.loadPlugin(autoArmor)
 bot.loadPlugin(autoTotem)
 
-bot.once('spawn', () => {
+bot.once('spawn', async () => {
   mineflayerViewer(bot, { firstPerson: true, port: 3000 });
   const defaultMove = new Movements(bot);
   defaultMove.allowParkour = false;
@@ -76,7 +76,7 @@ bot.once('spawn', () => {
   }, 2000);
 })
 
-bot.on('entityMoved', (entity: any) => {
+bot.on('entityMoved', async (entity: any) => {
   if (entity.player === null || entity.username === undefined) return
   if (entity.username === bot.username) return
   if (eval(process.env.MINECRAFT_ALTS as string).includes(entity.username)) return
@@ -84,7 +84,8 @@ bot.on('entityMoved', (entity: any) => {
   quit(`player (${entity.username}) moved nearby`)
 })
 
-bot.on('health', () => {
+bot.on('health', async () => {
+  //bot.chat(`health: ${bot.health}`)
   if (bot.health < minHealth)
     quit(`low hp: ${bot.health}`)
 })
@@ -93,13 +94,13 @@ bot.on("physicsTick", async () => {
   (bot as any).autototem.equip()
 })
 
-setInterval(() => {
+setInterval(async () => {
   if (bot._client.state !== "play") return
 
   sendMessageToChannel(`Currently on ${hostname} with ${bot.username}\n\tCoords: ${bot.entity?.position}\n\tDim: ${bot.game.dimension}\n\tHP: ${bot.health}`)
 }, updateTimeMinutes * 60 * 1000);
 
-setInterval(() => {
+setInterval(async () => {
   if (bot._client.state !== "play") return
   bot.swingArm(undefined)
   //bot.chat("Saturation: " + bot.foodSaturation + " Food: " + bot.food)
@@ -111,10 +112,10 @@ bot.on('death', () => {
   }, 3000);
 })
 
-bot.on('kicked', (message: any) => {
+bot.on('kicked', async (message: any) => {
   sendMessageToChannel(`Got kicked (message: ${message}) from on ${hostname} with ${bot.username}\n\tCoords: ${bot.entity?.position}\n\tDim: ${bot.game.dimension}\n\tHP: ${bot.health}`)
 })
 
-bot.on('error', (message: any) => {
+bot.on('error', async (message: any) => {
   sendMessageToChannel(`Got an error (error: ${message}) from on ${hostname} with ${bot.username}\n\tCoords: ${bot.entity?.position}\n\tDim: ${bot.game.dimension}\n\tHP: ${bot.health}`)
 })
