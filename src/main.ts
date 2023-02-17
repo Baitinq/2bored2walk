@@ -68,6 +68,7 @@ bot.once('spawn', async () => {
 
   (bot as any).autoArmor.checkOnItemPickup = true;
 
+  (bot as any).pathfinder.thinkTimeout = 20000;
   (bot as any).pathfinder.setMovements(defaultMove);
   (bot as any).pathfinder.setGoal(goal);
 
