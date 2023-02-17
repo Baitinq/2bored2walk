@@ -76,6 +76,10 @@ bot.once('spawn', async () => {
   }, 2000);
 })
 
+bot.on('goal_reached', async () => {
+  sendMessageToChannel(`Reached goal (${goal}) with ${bot.username}\n\tCoords: ${bot.entity?.position}\n\tDim: ${bot.game.dimension}\n\tHP: ${bot.health}`)
+})
+
 bot.on('entityMoved', async (entity: any) => {
   if (entity.player === null || entity.username === undefined) return
   if (entity.username === bot.username) return
